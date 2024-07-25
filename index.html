@@ -1,0 +1,222 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            width: 60%;
+            max-width: 500px;
+            padding: 10px;
+            background-color: #e8f7f7;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+        }
+        h1 {
+            color: #060607;
+            margin-bottom: 10px;
+        }
+        .nail-simulator {
+            display: flex;
+            align-items: center;
+        }
+        .nail-simulator img {
+            width: 25px;
+            margin-left: 50px;
+            height: 60px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .nail {
+            width: 500px;
+            height: 8px;
+            background-color: #333;
+            position: relative;
+            margin-left: 30px;
+        }
+        .rust {
+            width: 0;
+            height: 100%;
+            background-color: #c0392b;
+            position: absolute;
+            left: 0;
+            transition: width 1s ease;
+        }
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            justify-items: center;
+        }
+        .option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 10px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .option:hover {
+            transform: translateY(-5px);
+        }
+        .option-checkbox {
+            margin-bottom: 10px;
+        }
+        .option img {
+            width: 100px;
+            height: 100px;
+            border-radius: 5px;
+            object-fit: cover;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .option button {
+            font-size: 15px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        .option button:hover {
+            background-color: #0056b3;
+        }
+        .options-text {
+            text-align: left;
+            color: #010306;
+        }
+        .submit-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color:  #007BFF;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+        .question-container {
+            background-color: #b9e6ef;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow:  rgba(148, 9, 9, 0.1);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="question-container">
+            <p><strong>Task: PREVENT RUST FORMATION ON AN IRON NAIL </strong><br><br>
+                Which of the following treatments would be the MOST effective in preventing rust formation on the iron nail?</p>
+        </div>
+        <div class="nail-simulator">
+            <img src="images/nail.jpg" alt="Fresh Nail">
+            <div class="nail">
+                <div class="rust" id="rust"></div>
+            </div>
+            <img src="images/old.jpg" alt="Rusted Nail">
+        </div>
+        <p class="options-text"> <strong>Select a treatment option: </strong><br>
+            [Click on the treatment option buttons below to see the effect on rust prevention]</p>
+        <div class="options">
+            <div class="option">
+                <input type="radio" id="optionA" name="option" value="A" class="option-checkbox">
+                <label for="optionA">
+                    <img src="images/distilled-water.jpg" alt="Distilled Water">
+                </label>
+                <button onclick="simulateRust('A')">Distilled Water</button>
+            </div>
+            <div class="option">
+                <input type="radio" id="optionB" name="option" value="B" class="option-checkbox">
+                <label for="optionB">
+                    <img src="images/paint.jpg" alt="Acrylic Paint">
+                </label>
+                <button onclick="simulateRust('B')">Acrylic Paint</button>
+            </div>
+            <div class="option">
+                <input type="radio" id="optionC" name="option" value="C" class="option-checkbox">
+                <label for="optionC">
+                    <img src="images/oil.jpg" alt="Cooking Oil">
+                </label>
+                <button onclick="simulateRust('C')">Cooking Oil</button>
+            </div>
+            <div class="option">
+                <input type="radio" id="optionD" name="option" value="D" class="option-checkbox">
+                <label for="optionD">
+                    <img src="images/wax.jpg" alt="Wax">
+                </label>
+                <button onclick="simulateRust('D')">Wax</button>
+            </div>
+        </div>
+        <button class="submit-button" onclick="submitSelection()">Submit</button>
+    </div>
+
+    <script>
+        function simulateRust(option) {
+            const rustElement = document.getElementById('rust');
+            rustElement.style.width = '0'; 
+
+            switch (option) {
+                case 'A':
+                    rustElement.style.width = '90%';
+                    break;
+                case 'B':
+                    rustElement.style.width = '10%';
+                    break;
+                case 'C':
+                    rustElement.style.width = '50%';
+                    break;
+                case 'D':
+                    rustElement.style.width = '70%';
+                    break;
+                default:
+                    console.error('Invalid option');
+            }
+        }
+
+        function submitSelection() {
+            const selectedOption = document.querySelector('input[name="option"]:checked');
+            if (selectedOption) {
+                let message;
+                switch (selectedOption.value) {
+                    case 'A':
+                        message = "Incorrect. Distilled water, while it can prevent some rust formation due to its purity, does not create a durable barrier to protect the nail from moisture and oxygen, which are necessary for rusting.";
+                        break;
+                    case 'B':
+                        message = "Correct! Acrylic paint effectively prevents rust by forming a protective barrier over the iron nail. This barrier blocks moisture and oxygen from reaching the iron surface, thereby preventing rust formation but needs maintenance thus is not 100% rust-free.";
+                        break;
+                    case 'C':
+                        message = "Incorrect. Cooking oil can slow down rusting by providing a layer of protection against moisture, but it is not as effective as acrylic paint in preventing rust formation over the long term.";
+                        break;
+                    case 'D':
+                        message = "Incorrect. Wax can provide temporary protection by forming a barrier against moisture and oxygen, but it is not as durable as acrylic paint and may wear off over time, allowing rust to develop.";
+                        break;
+                    default:
+                        message = "Please select an option.";
+                }
+                alert(message);
+            } else {
+                alert('Please select an option before submitting.');
+            }
+        }
+    </script>
+</body>
+</html>
